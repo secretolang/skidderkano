@@ -1808,15 +1808,15 @@ CashLayout.CellSize = UDim2.new(0.48, 0, 0, 35)
 CashLayout.CellPadding = UDim2.new(0.04, 0, 0.1, 0)
 
 CreateBtn("1M", CashFrame, Color3.fromRGB(40, 55, 40), function()
-    RS.MedicalBlackmarketFolder.legacy:FireServer("Pill", -1000000)
+    RS.MedicalBlackmarketFolder.Legacy:FireServer("Pill", -1000000)
 end)
 
 CreateBtn("5M", CashFrame, Color3.fromRGB(40, 55, 40), function()
-    RS.MedicalBlackmarketFolder.legacy:FireServer("Pill", -500000000)
+    RS.MedicalBlackmarketFolder.Legacy:FireServer("Pill", -500000000)
 end)
 
 local OneMBtn = CreateBtn("1B", CashFrame, Color3.fromRGB(65, 35, 35), function()
-    RS.MedicalBlackmarketFolder.legacy:FireServer("Pill", -100000000000000)
+    RS.MedicalBlackmarketFolder.Legacy:FireServer("Pill", -100000000000000)
 end)
 OneMBtn.Size = UDim2.new(1, 0, 0, 35)end)
 
