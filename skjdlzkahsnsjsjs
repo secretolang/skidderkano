@@ -51,7 +51,7 @@ local function isWhitelisted()
 end
 
 if not isWhitelisted() then
-    player:Kick("BILI KA GAGO")
+    player:Kick("PA WHITELIST KA")
     return
 end
 
@@ -1057,7 +1057,7 @@ UICorner.Parent = MainFrame
 local Title = Instance.new("TextLabel")
 Title.Parent = MainFrame
 Title.Size = UDim2.new(1, 0, 0, 35)
-Title.Text = "Silent Aim"
+Title.Text = "Crimson silent"
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 Title.BackgroundTransparency = 1
 Title.Font = Enum.Font.GothamBold
@@ -3288,6 +3288,221 @@ UserInputService.InputChanged:Connect(function(input)
 			startPos.Y.Offset + delta.Y
 		)
 	end
+end)
+
+-- Mobile Tab
+local mobileTab = createTab("Mobile")
+
+createButton(mobileTab, "AIMBOT|UNO|", function()
+-- CAMLOCK + PREDICTION + TARGET ESP (MOBILE)
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UIS = game:GetService("UserInputService")
+
+local LP = Players.LocalPlayer
+local Camera = workspace.CurrentCamera
+
+local camlock = false
+local target = nil
+local highlight = nil
+
+-- chỉnh độ mạnh camlock
+local prediction = 0.25
+
+--------------------------------------------------
+-- GUI BUTTON (tròn nhỏ)
+--------------------------------------------------
+
+local gui = Instance.new("ScreenGui")
+gui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+local btn = Instance.new("ImageButton")
+btn.Size = UDim2.new(0, 150, 0, 150)
+btn.Position = UDim2.new(0.8, 0, 0.7, 0)
+btn.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+btn.Image = "rbxassetid://111034702261924"
+btn.Parent = gui
+
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(1, 0)
+corner.Parent = btn
+
+--------------------------------------------------
+-- DRAG MOBILE
+--------------------------------------------------
+
+local dragging = false
+local dragStart
+local startPos
+
+btn.InputBegan:Connect(function(input)
+
+    if input.UserInputType == Enum.UserInputType.Touch then
+        
+        dragging = true
+        dragStart = input.Position
+        startPos = btn.Position
+        
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+        
+    end
+    
+end)
+
+UIS.InputChanged:Connect(function(input)
+
+    if dragging and input.UserInputType == Enum.UserInputType.Touch then
+        
+        local delta = input.Position - dragStart
+        
+        btn.Position = UDim2.new(
+            startPos.X.Scale,
+            startPos.X.Offset + delta.X,
+            startPos.Y.Scale,
+            startPos.Y.Offset + delta.Y
+        )
+        
+    end
+    
+end)
+
+--------------------------------------------------
+-- ESP TARGET
+--------------------------------------------------
+
+local function createHighlight(character)
+
+    if highlight then
+        highlight:Destroy()
+    end
+    
+    highlight = Instance.new("Highlight")
+
+    highlight.FillColor = Color3.fromRGB(255,0,0)
+    highlight.FillTransparency = 0.5
+
+    highlight.OutlineColor = Color3.fromRGB(255,255,255)
+    highlight.OutlineTransparency = 0
+
+    highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+
+    highlight.Parent = character
+
+end
+
+--------------------------------------------------
+-- tìm player gần tâm màn hình
+--------------------------------------------------
+
+local function getTarget()
+
+    local closest = nil
+    local dist = math.huge
+    
+    for _,plr in pairs(Players:GetPlayers()) do
+        
+        if plr ~= LP
+        and plr.Character
+        and plr.Character:FindFirstChild("HumanoidRootPart") then
+            
+            local pos, visible =
+                Camera:WorldToViewportPoint(
+                    plr.Character.HumanoidRootPart.Position
+                )
+            
+            if visible then
+                
+                local center =
+                    Vector2.new(
+                        Camera.ViewportSize.X/2,
+                        Camera.ViewportSize.Y/2
+                    )
+                
+                local mag =
+                    (Vector2.new(pos.X,pos.Y) - center).Magnitude
+                
+                if mag < dist then
+                    
+                    dist = mag
+                    closest = plr
+                    
+                end
+                
+            end
+            
+        end
+        
+    end
+    
+    return closest
+    
+end
+
+--------------------------------------------------
+-- bật tắt camlock
+--------------------------------------------------
+
+btn.MouseButton1Click:Connect(function()
+
+    camlock = not camlock
+    
+    if camlock then
+        
+        btn.BackgroundColor3 = Color3.fromRGB(0,170,255)
+        target = getTarget()
+        
+        if target and target.Character then
+            createHighlight(target.Character)
+        end
+        
+    else
+        
+        btn.BackgroundColor3 = Color3.fromRGB(30,30,30)
+        target = nil
+        
+        if highlight then
+            highlight:Destroy()
+        end
+        
+    end
+    
+end)
+
+--------------------------------------------------
+-- CAMLOCK + PREDICTION
+--------------------------------------------------
+
+RunService.RenderStepped:Connect(function()
+
+    if camlock
+    and target
+    and target.Character
+    and target.Character:FindFirstChild("HumanoidRootPart") then
+        
+        local hrp = target.Character.HumanoidRootPart
+        
+        local predicted =
+            hrp.Position +
+            (hrp.Velocity * prediction)
+        
+        Camera.CFrame =
+            CFrame.new(
+                Camera.CFrame.Position,
+                predicted
+            )
+        
+    end
+    
+end)
+end)
+
+createButton(mobileTab, "stretch screen|UNO|", function()
+     getgenv().Resolution = { [".gg/scripters"] = 0.44} local Camera = workspace.CurrentCamera if getgenv().gg_scripters == nil then game:GetService("RunService").RenderStepped:Connect( function() Camera.CFrame = Camera.CFrame * CFrame.new(0, 0, 0, 1, 0, 0, 0, getgenv().Resolution[".gg/scripters"], 0, 0, 0, 1) end ) end getgenv().gg_scripters = "Aori0001"
 end)
 
 ----------------------------------------------------------------
