@@ -39,7 +39,7 @@ local player = game.Players.LocalPlayer
 local WHITELISTED_IDS = {
     3533445605, -- Owner
     9220229993, -- ren_ja09
-    6089681232, -- joven-789m
+    9777565927, -- joven-789m
 }
 
 local function isWhitelisted()
@@ -809,7 +809,7 @@ SliderButton.Size = UDim2.new(0, 20, 0, 20)
 
 SliderButton.Position = UDim2.new(0, -10, 0.5, -10)
 
-SliderButton.BackgroundColor3 = Color3.new(255, 255, 255)
+SliderButton.BackgroundColor3 = Color3.new(255, 0, 0)
 
 SliderButton.Text = ""
 
@@ -825,7 +825,7 @@ SizeLabel.Position = UDim2.new(0, 0, 0.45, 0)
 
 SizeLabel.BackgroundTransparency = 1
 
-SizeLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+SizeLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
 
 SizeLabel.Text = "Size: " .. _G.HeadSize
 
@@ -835,7 +835,7 @@ SizeLabel.Text = "Size: " .. _G.HeadSize
 
 local Circle = Drawing.new("Circle")
 
-Circle.Color = Color3.new(0,0,0)
+Circle.Color = Color3.new(255,0,0)
 
 Circle.Thickness = 2
 
@@ -1000,7 +1000,7 @@ end)
 
 local harayaTab = createTab("Aimbot Silent")
 
-createButton(harayaTab, "BypassHitmark|UNO|", function()
+createButton(harayaTab, "BypassHT|UNO|", function()
 	local rs = game:GetService("ReplicatedStorage")
 
 	local deletedCount = 0
@@ -1013,7 +1013,7 @@ createButton(harayaTab, "BypassHitmark|UNO|", function()
 
 	pcall(function()
 		StarterGui:SetCore("SendNotification", {
-			Title = "Bypassed",
+			Title = "UNO BYPASSED",
 			Text = "Deleted: " .. deletedCount,
 			Duration = 4
 		})
@@ -1044,15 +1044,25 @@ ScreenGui.Parent = TargetParent
 
 local MainFrame = Instance.new("Frame")
 MainFrame.Parent = ScreenGui
-MainFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+MainFrame.BackgroundTransparency = 1
 MainFrame.BorderSizePixel = 0
 MainFrame.Position = UDim2.new(0.1, 0, 0.4, 0)
 MainFrame.Size = UDim2.new(0, 220, 0, 130)
 MainFrame.Active = true
 MainFrame.Draggable = true 
 
+-- // BACKGROUND IMAGE
+local BgImage = Instance.new("ImageLabel")
+BgImage.Parent = MainFrame
+BgImage.Size = UDim2.new(1, 0, 1, 0)
+BgImage.Position = UDim2.new(0, 0, 0, 0)
+BgImage.BackgroundTransparency = 1
+BgImage.Image = "rbxassetid://111034702261924" -- change image id here
+BgImage.ScaleType = Enum.ScaleType.Stretch
+BgImage.ZIndex = 0
+
 local UICorner = Instance.new("UICorner")
-UICorner.Parent = MainFrame
+UICorner.Parent = BgImage
 
 local Title = Instance.new("TextLabel")
 Title.Parent = MainFrame
@@ -1062,6 +1072,7 @@ Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 Title.BackgroundTransparency = 1
 Title.Font = Enum.Font.GothamBold
 Title.TextSize = 14
+Title.ZIndex = 2
 
 local CloseBtn = Instance.new("TextButton")
 CloseBtn.Parent = MainFrame
@@ -1070,6 +1081,8 @@ CloseBtn.Size = UDim2.new(0, 25, 0, 25)
 CloseBtn.BackgroundColor3 = Color3.fromRGB(150, 0, 0)
 CloseBtn.Text = "X"
 CloseBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+CloseBtn.ZIndex = 2
+
 local CloseCorner = Instance.new("UICorner")
 CloseCorner.CornerRadius = UDim.new(1, 0)
 CloseCorner.Parent = CloseBtn
@@ -1082,12 +1095,14 @@ SliderLabel.Text = "FOV Radius: " .. _G.FOV_RADIUS
 SliderLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 SliderLabel.BackgroundTransparency = 1
 SliderLabel.TextXAlignment = Enum.TextXAlignment.Left
+SliderLabel.ZIndex = 2
 
 local SliderBg = Instance.new("Frame")
 SliderBg.Parent = MainFrame
 SliderBg.Position = UDim2.new(0, 15, 0, 85)
 SliderBg.Size = UDim2.new(0, 190, 0, 8)
 SliderBg.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+SliderBg.ZIndex = 2
 
 local SliderBtn = Instance.new("TextButton")
 SliderBtn.Parent = SliderBg
@@ -1095,6 +1110,8 @@ SliderBtn.Size = UDim2.new(0, 14, 0, 14)
 SliderBtn.Position = UDim2.new(0.2, -7, 0.5, -7)
 SliderBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 SliderBtn.Text = ""
+SliderBtn.ZIndex = 3
+
 local SliderBtnCorner = Instance.new("UICorner")
 SliderBtnCorner.CornerRadius = UDim.new(1, 0)
 SliderBtnCorner.Parent = SliderBtn
@@ -1102,7 +1119,7 @@ SliderBtnCorner.Parent = SliderBtn
 -- // VISUAL INDICATOR
 local FOVCircle = Drawing.new("Circle")
 FOVCircle.Thickness = 2
-FOVCircle.Color = Color3.fromRGB(255, 255, 255)
+FOVCircle.Color = Color3.fromRGB(255, 0, 0)
 FOVCircle.Visible = true
 FOVCircle.Radius = _G.FOV_RADIUS
 FOVCircle.Transparency = 0.8
@@ -1292,7 +1309,7 @@ createButton(harayaTab, "BigHead|UNO|", function()
 		frameCorner.Parent = frame
 
 		local frameStroke = Instance.new("UIStroke")
-		frameStroke.Color = Color3.fromRGB(255, 255, 255)
+		frameStroke.Color = Color3.fromRGB(255, 0, 0)
 		frameStroke.Thickness = 1
 		frameStroke.Transparency = 0.6
 		frameStroke.Parent = frame
@@ -1301,10 +1318,10 @@ createButton(harayaTab, "BigHead|UNO|", function()
 		titleLabel.Size = UDim2.new(1, -90, 0, 30)
 		titleLabel.Position = UDim2.new(0, 10, 0, 8)
 		titleLabel.BackgroundTransparency = 1
-		titleLabel.Text = "Hitbox Size Adjuster"
+		titleLabel.Text = "HitboxAdjuster"
 		titleLabel.Font = Enum.Font.GothamBold
 		titleLabel.TextSize = 16
-		titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+		titleLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
 		titleLabel.TextXAlignment = Enum.TextXAlignment.Left
 		titleLabel.Parent = frame
 
@@ -1344,7 +1361,7 @@ createButton(harayaTab, "BigHead|UNO|", function()
 		scrollFrame.BackgroundTransparency = 1
 		scrollFrame.BorderSizePixel = 0
 		scrollFrame.ScrollBarThickness = 4
-		scrollFrame.ScrollBarImageColor3 = Color3.fromRGB(255, 255, 255)
+		scrollFrame.ScrollBarImageColor3 = Color3.fromRGB(255, 0, 0)
 		scrollFrame.CanvasSize = UDim2.new(0, 0, 0, (#bodyParts + 1) * 42)
 		scrollFrame.Parent = frame
 
@@ -1395,7 +1412,7 @@ createButton(harayaTab, "BigHead|UNO|", function()
 			partLabel.Text = partName
 			partLabel.Font = Enum.Font.Gotham
 			partLabel.TextSize = 14
-			partLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+			partLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
 			partLabel.TextXAlignment = Enum.TextXAlignment.Left
 			partLabel.Parent = partFrame
 
@@ -1412,7 +1429,7 @@ createButton(harayaTab, "BigHead|UNO|", function()
 
 			local sliderFill = Instance.new("Frame")
 			sliderFill.Size = UDim2.new(0, 0, 1, 0)
-			sliderFill.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			sliderFill.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 			sliderFill.BorderSizePixel = 0
 			sliderFill.Parent = sliderBackground
 
@@ -1423,7 +1440,7 @@ createButton(harayaTab, "BigHead|UNO|", function()
 			local sliderButton = Instance.new("TextButton")
 			sliderButton.Size = UDim2.new(0, 16, 0, 16)
 			sliderButton.Position = UDim2.new(0, -8, 0.5, -8)
-			sliderButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			sliderButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 			sliderButton.BorderSizePixel = 0
 			sliderButton.Text = ""
 			sliderButton.AutoButtonColor = false
@@ -1475,7 +1492,7 @@ createButton(harayaTab, "BigHead|UNO|", function()
 		transparencyLabel.Text = "Transparency"
 		transparencyLabel.Font = Enum.Font.Gotham
 		transparencyLabel.TextSize = 14
-		transparencyLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+		transparencyLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
 		transparencyLabel.TextXAlignment = Enum.TextXAlignment.Left
 		transparencyLabel.Parent = transparencyFrame
 
@@ -1492,7 +1509,7 @@ createButton(harayaTab, "BigHead|UNO|", function()
 
 		local transparencyFill = Instance.new("Frame")
 		transparencyFill.Size = UDim2.new(hitboxTransparency, 0, 1, 0)
-		transparencyFill.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		transparencyFill.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 		transparencyFill.BorderSizePixel = 0
 		transparencyFill.Parent = transparencyBg
 
