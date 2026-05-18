@@ -39,7 +39,8 @@ local player = game.Players.LocalPlayer
 local WHITELISTED_IDS = {
     3533445605, -- Owner
     9220229993, -- ren_ja09
-    9777565927, -- joven-789m
+    9777565927, -- joven-789
+    6089681232, -- JR
 }
 
 local function isWhitelisted()
